@@ -5,13 +5,18 @@
 
 /** @var PDO $pdo */
 
-require_once './pdo_ini.php';
-if(isset($_POST["id"]))
-{
-    foreach($_POST["id"] as $id)
-    {
-        $sth = $pdo->prepare("DELETE  FROM task where id='$id'");
-        $sth->setFetchMode(PDO::FETCH_ASSOC);
-        $sth->execute();    }
+require_once 'pdo_ini.php';
+if(isset($_GET['did'])) {
+    $task_id = strip_tags( $_GET['did'] );
+
+    $sql = $pdo->prepare("DELETE FROM task WHERE id = '".$task_id."'");
+    $sql->execute();
+    header('location:profile.php');
+
+
+    if($sql) {
+    } else {
+        echo "ERROR";
+    }
 }
 ?>

@@ -4,37 +4,22 @@ require_once './pdo_ini.php';
 if (empty($_SESSION['email'])) {
     header("location:index.php");
 }
-
+$date = date('Y-m-d');
+$time = date('H:i:s');
 $id = $_SESSION['id'];
 if (isset($_POST['newTodo'])) {
- //   header("location:create_task.php");
 
     $task = $_POST['task'];
 
-    $taskin = $pdo->prepare("INSERT INTO `task` (`id`, `user_id`, `name`) VALUES (NULL,$id,'$task');");
+    $taskin = $pdo->prepare("INSERT INTO `task` (`id`, `user_id`, `name`,`date`,`time`,`status`) VALUES (NULL,$id,'$task','$date','$time',1);");
 
     $taskin->execute();
     header("location:profile.php");
 
 }
 
-if(isset($_GET['did'])) {
-    $task_id = strip_tags( $_GET['did'] );
-
-    $sql = $pdo->prepare("DELETE FROM task WHERE id = '".$task_id."'");
-    $sql->execute();
-
-    if($sql) {
-        echo "<br/><br/><span>deleted successfully...!!</span>";
-    } else {
-        echo "ERROR";
-    }
-}
-
-//$task_id = strip_tags( $_POST['task_id'] );
 
 
-//mysql_query("DELETE FROM tasks WHERE id='$task_id'");
 ?>
 
 
@@ -72,40 +57,78 @@ if(isset($_GET['did'])) {
     <div class="row">
 
 
-        <div class="col-sm-4">            <h1>ToDo</h1>
+        <div class="col-sm-4">            <h1>This is your task list</h1>
 
             <form class="add-new-task" autocomplete="off" METHOD="post">
                 <input type="text" name="task" placeholder="Add a new item..."/>
-                <input type="submit" name="newTodo" value="Create">
+                <input type="submit" name="newTodo" value="Create"/>
 
             </form>
         </div>
-        <div class="col-sm-8">            <div class="wrap">
+        <div class="col-sm-8">
+            <div class="wrap">
                 <div class="task-list">
-                    <ul>
-            <?php
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">task</th>
+                            <th scope="col">date </th>
+                            <th scope="col">time </th>
 
-            $sth = $pdo->prepare("SELECT * FROM task where user_id='$id'");
+                            <th scope="col">Status</th>
+                            <th scope="col"></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        <?php
+
+            $sth = $pdo->prepare("SELECT * FROM task where user_id='$id' and status='1'");
             $sth->setFetchMode(PDO::FETCH_ASSOC);
             $sth->execute();
             $items = $sth->fetchAll();
             foreach ($items as $row) {
+              echo  "<tr>";
 
-           //     $task_id = $i['id'];
-             //   $task_name = $i['name'];
-                echo "<tr>";
                 echo "<td>" . $row['name'] . "</td>";
-                echo "<td>" . $row['id'] . "</td>";
-                echo "<td><a href='profile.php?did=".$row['id']."'>Delete</a></td>";
-                echo "</tr>";
+                echo "<td>" . $row['date'] . "</td>";
+                echo "<td>" . $row['time']  . "</td>";
+
+                echo "<td><a class='btn btn-primary'  value='1' role='button' href='status_upd.php?done=".$row['id']."'>Done</td>";
+
+                echo "<td><a class='btn btn-primary' role='button' href='delete_task.php?did=".$row['id']."'>Delete</td>";
+
             }
 
             ?>
+                        </tr>
+                        </tbody>
+                        <tbody>
 
-                    </ul>
-                    <div align="center">
-                        <button type="button" name="btn_delete" id="btn_delete" class="btn btn-success">Delete</button>
-                    </div>
+                        <?php
+
+                        $sth = $pdo->prepare("SELECT * FROM task where user_id='$id' and status='2'");
+                        $sth->setFetchMode(PDO::FETCH_ASSOC);
+                        $sth->execute();
+                        $items = $sth->fetchAll();
+                        foreach ($items as $row) {
+                            echo  "<tr>";
+
+                            echo "<td>" . $row['name'] . "</td>";
+                            echo "<td>" . $row['date']  . "</td>";
+                            echo "<td>" . $row['time']  . "</td>";
+                            echo "<td> Status Done </td>";
+
+
+
+                        }
+
+                        ?>
+                        </tbody>
+                    </table>
+
                 </div>
         </div>
     </div>
@@ -116,23 +139,5 @@ if(isset($_GET['did'])) {
 </body>
 </html>
 
-<script>
-    delete_task();
-    function delete_task() {
-
-        $('.delete-button').click(function(){
-
-            var current_element = $(this);
-
-            var id = $(this).attr('id');
-
-            $.post('profile.php', { task_id: id }, function() {
-
-                current_element.parent().fadeOut("fast", function() { $(this).remove(); });
-            });
-        });
-    }
-
-</script>
 
 
