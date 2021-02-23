@@ -23,11 +23,13 @@ values(:name,:email,:pass) ");
         $select->setFetchMode(PDO::FETCH_ASSOC);
         $select->execute();
         $data=$select->fetch();
-        if($data['email']!=$email and $data['pass']!=$pass)
+        $chekmail=$data['email'];
+        $chekpass=$data['pass'];
+        if($chekmail!=$email and $chekpass!=$pass)
         {
             echo '  <p class="message"> error</p>';
         }
-        elseif($data['email']==$email and $data['pass']==$pass )
+        elseif($data['email']==$_POST['email'] and $data['pass']==$_POST['pass'] )
         {
             $_SESSION['email']=$data['email'];
             $_SESSION['name']=$data['name'];
@@ -35,6 +37,9 @@ values(:name,:email,:pass) ");
             header("location:profile.php");
         }
     }
+
+
+
 }
 catch(PDOException $e)
 {
