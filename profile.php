@@ -125,7 +125,7 @@ $login=$_SESSION['name'];
                                     $items = $sth->fetchAll();
                                     foreach ($items as $row) {
 
-                                        echo "<li class='list-group-item'> <strike>" . $row['name'] . "</strike>" "</li>";
+                                        echo "<li class='list-group-item'> <strike>" . $row['name'] . "</strike>".$row['date']. "</li>";
 
 
                                     }
