@@ -50,7 +50,7 @@ $items = $sth->fetchAll();
 
 
         <div class="col-sm-4">
-            <h1>This is your task list</h1>
+            <h3>This is your task list</h3>
 
             <form class="add-new-task" autocomplete="off" METHOD="post" action="newtodo.php">
                 <input type="text" name="task" placeholder="Add a new item..."/>
@@ -64,13 +64,13 @@ $items = $sth->fetchAll();
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
-                            <th scope="col"><a class='btn btn-primary' role='button'
+                            <th scope="col"><a class='sort' role='button'
                                                href="?<?= http_build_query(array_merge($_GET, ['sort' => 'name'])) ?>">Task</a>
                             </th>
-                            <th scope="col"><a class='btn btn-primary' role='button'
+                            <th scope="col"><a class=' sort' role='button'
                                                href="?<?= http_build_query(array_merge($_GET, ['sort' => 'date'])) ?>">Date</a>
                             </th>
-                            <th> Time</th>
+                            <th scope="col"></th>
 
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -99,25 +99,46 @@ $items = $sth->fetchAll();
                         </tr>
                         </tbody>
                     </table>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btns btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Do you want to look at the completed tasks?                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Well done)</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul class="list-group">
 
 
-                    <?php
+                                    <?php
 
-                    $sth = $pdo->prepare("SELECT * FROM task where user_id='$id' and status='2'");
-                    $sth->setFetchMode(PDO::FETCH_ASSOC);
-                    $sth->execute();
-                    $items = $sth->fetchAll();
-                    foreach ($items as $row) {
-                        echo "<tr>";
+                                    $sth = $pdo->prepare("SELECT * FROM task where user_id='$id' and status='2'");
+                                    $sth->setFetchMode(PDO::FETCH_ASSOC);
+                                    $sth->execute();
+                                    $items = $sth->fetchAll();
+                                    foreach ($items as $row) {
 
-                        echo "<strike>" . $row['name'] . "</strike>";
-                        echo "<p>" . $row['date'] . "</p>";
-                        echo "<p> Status Done </p>";
+                                        echo "<li class='list-group-item'> <strike>" . $row['name'] . "</strike>".$row['date']. "</li>";
 
 
-                    }
+                                    }
 
-                    ?>
+                                    ?>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </div>
             </div>

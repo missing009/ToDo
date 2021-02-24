@@ -25,13 +25,10 @@ values(:name,:email,:pass) ");
 
             header('location:index.php');
         } else {
-            echo 'no exist';
-            header('Refresh: 2; URL=registration.php');
-
+            header('Refresh: 0; URL=registration.php?message=email already exist');
         }
     } else {
-        echo "no valid";
-        header('Refresh: 2; URL=registration.php');
+        header('Refresh: 0; URL=registration.php?message=email not valid');
 
 
     }

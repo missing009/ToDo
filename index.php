@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,6 +18,8 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 </head>
 
@@ -35,8 +38,10 @@
 
         <form method="post" autocomplete="off" action="login_query.php">
             <input type="text" id="login" class="fadeIn second" name="email" placeholder="email">
-            <input type="text" id="password" class="fadeIn third" name="pass" placeholder="password">
+            <input type="password" id="password" class="fadeIn third" name="pass" placeholder="password">
             <input type="submit" class="fadeIn fourth " name="signin" value="Log In">
+            <?php if(isset($_GET['message'])) { $m=$_GET['message'] ;  echo "<p >" . $m . "</p>";} ?>
+
         </form>
         <br>
         <a href="registration.php">Registration</a>

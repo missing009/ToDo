@@ -15,9 +15,8 @@ if (isset($_POST['newTodo'])) {
         header("location:profile.php");
 
     } else {
-        echo '<p>empty</p>';
+        header('Refresh: 0; URL=profile.php');
 
-        header("location:profile.php");
 
     }
 }

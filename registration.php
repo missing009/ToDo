@@ -18,22 +18,32 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 </head>
 <body>
-
+<div class="modal fade" id="formular">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="alert alert-block alert-danger">
+                    <h4>Error !</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class="wrapper fadeInDown">
         <div id="formContent">
-            <!-- Tabs Titles -->
 
-            <!-- Icon -->
             <div class="fadeIn first">
                 <br>
                 <img src="check-mark.svg" id="icon" alt="User Icon" />
                 <h2>Registration</h2>
             </div>
 
-            <!-- Login Form -->
             <form method="post" autocomplete="off" action="register_query.php">
                 <input type="text" id="login" class="fadeIn second" name="email" placeholder="email">
                 <input type="text" id="login" class="fadeIn second" name="name" placeholder="name">
@@ -41,7 +51,7 @@
                 <input type="text" id="password" class="fadeIn third" name="pass" placeholder="password">
 
                 <input type="submit" class="fadeIn fourth " name="signup" value="Create">
-
+                <?php if(isset($_GET['message'])) { $m=$_GET['message'] ;  echo "<p >" . $m . "</p>";} ?>
             </form>
             <a class="fadeIn fourth" href="index.php">Login</a>
 
