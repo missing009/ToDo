@@ -1,7 +1,7 @@
 <?php
 return [
     'host' => 'localhost',
-    'dbname' => 'ToDo',
+    'dbname' => 'list',
     'user' => 'root',
     'pass' => 'secret',
 ];
