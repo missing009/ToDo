@@ -15,7 +15,7 @@ $sth = $pdo->prepare($query);
 $sth->setFetchMode(PDO::FETCH_ASSOC);
 $sth->execute();
 $items = $sth->fetchAll();
-
+$login=$_SESSION['name'];
 
 ?>
 
@@ -39,8 +39,8 @@ $items = $sth->fetchAll();
 <body>
 
 
-<nav class="navbar navbar-dark bg-dark">WELCOME :<?php echo $_SESSION['name']; ?>
-    <a href="logout.php">Logout</a>
+<nav class="navbar navbar-light bg-light"><?php echo "<p  >" . $login . "</p>" ; ?>
+    <a class="btns" href="logout.php">Logout</a>
 
 </nav>
 
