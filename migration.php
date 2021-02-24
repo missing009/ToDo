@@ -11,27 +11,21 @@ SQL;
 $pdo->exec($sql);
 
 $sql = <<<'SQL'
-CREATE TABLE `todo1`.`users`
-( `id` INT NOT NULL ,
- `name` VARCHAR(150) NOT NULL , 
- `pass` VARCHAR(150) NOT NULL ,
-  `email` INT(150) NOT NULL , 
-  PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `todo`.`users` (  `id` int(5) NOT NULL,  `name` varchar(25) NOT NULL,  `email` varchar(25) NOT NULL,  `pass` varchar(25) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 SQL;
 $pdo->exec($sql);
 
 $sql = <<<'SQL'
 
-CREATE TABLE `todo1`.`task` 
-( `id` INT NOT NULL ,
- `name` VARCHAR(500) NOT NULL , 
- `user_id` INT NOT NULL , 
- `date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP , 
- `time` INT NOT NULL DEFAULT CURRENT_TIMESTAMP , 
- `status` TINYINT(2) NOT NULL , 
- PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `todo`.`task` (  `id` int(100) NOT NULL,
+  `user_id` int(100) NOT NULL,
+   `name` varchar(200) NOT NULL, 
+    `date` date NOT NULL DEFAULT current_timestamp(), 
+     `time` time NOT NULL DEFAULT current_timestamp(), 
+      `status` tinyint(2) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ALTER TABLE `task` ADD FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 SQL;
 $pdo->exec($sql);
