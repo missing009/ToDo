@@ -64,10 +64,10 @@ $login=$_SESSION['name'];
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
-                            <th scope="col"><a class='sort' role='button'
+                            <th scope="col"><a class='' role='button'
                                                href="?<?= http_build_query(array_merge($_GET, ['sort' => 'name'])) ?>">Task</a>
                             </th>
-                            <th scope="col"><a class=' sort' role='button'
+                            <th scope="col"><a class=' ' role='button'
                                                href="?<?= http_build_query(array_merge($_GET, ['sort' => 'date'])) ?>">Date</a>
                             </th>
                             <th scope="col"></th>
@@ -104,8 +104,8 @@ $login=$_SESSION['name'];
                         Do you want to look at the completed tasks?                    </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
+                    <div class="modal  fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog formContent" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Well done)</h5>
@@ -125,7 +125,7 @@ $login=$_SESSION['name'];
                                     $items = $sth->fetchAll();
                                     foreach ($items as $row) {
 
-                                        echo "<li class='list-group-item'> <strike>" . $row['name'] . "</strike>".$row['date']. "</li>";
+                                        echo "<li class='list-group-item'> <strike>" . $row['name'] . "</strike>" "</li>";
 
 
                                     }
